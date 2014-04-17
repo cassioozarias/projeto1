@@ -19,7 +19,7 @@ return array(
             'sonuser-admin'=> array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/admin/[:controle[/][:action[/][:id]]]]',
+                    'route' => '/admin/[:controller[/][:action[/][:id[/]]]]',
                     'defaults' => array(
                         'controller' =>'users',
                         'action'     =>'index'
