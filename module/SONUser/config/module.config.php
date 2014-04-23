@@ -26,17 +26,18 @@ return array(
                       ),
                     'constraints' =>array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    ),  
-                 )
-              )
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                  )  
+               )
+            )
         ),
     ),
     'controllers' => array(
         'invokables' => array(
-            'SONUser\Controller\Index' => 'SONUser\Controller\IndexController',
             'users' => 'SONUser\Controller\UsersController',
-        )
+            'SONUser\Controller\Index' => 'SONUser\Controller\IndexController',
+            
+        ),
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
@@ -52,6 +53,9 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy'
         ),
     ),
     'doctrine' => array(

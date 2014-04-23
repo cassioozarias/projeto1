@@ -4,19 +4,40 @@ namespace SONUser\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+
+use SONUser\Form\User as UserForm;
+use SONUser\Entity\User as UserEntity;
+
 
 class UsersController extends AbstractActionController {
 
     /**
      * @var $em \Doctrine\ORM\EntityManager
      */
+
     private $em;
     private $form;
 
     public function __construct()
-  {
-        $this->form = new UserForm;
+    {
+        $this->entity = "SONUser\Entity\User";
+        $this->form = "SONUser\Form\User";
+        $this->service = "SONUser\Service\User";
+        $this->controller = "users";
+        $this->route = "sonuser-admin";
     }
+ 
+    public function jsonAction() {
+        return new JsonModel(
+                array(
+                'teste' => 'teste'
+                  
+                )
+        );
+    }
+            
+            
     public function indexAction() 
    {
         $list = $this->getEm()
@@ -26,11 +47,30 @@ class UsersController extends AbstractActionController {
         return new ViewModel(Array('data'=>$list));
     }
     
-    public newaction()
+    public function newAction()
     {
         $form = $this->form;
         
-        $request 
+        $request = $this->getRequest();
+        
+        if($request->isPost()) {
+            $form->setData($request->getPost());
+            if($form->isValid()) {
+                $data = $form->getData();
+                $user = new UserEntity;
+                
+                $user->setNome($data['nome'])
+                     ->setEmail($data['email'])
+                     ->setPassword($data['password'])
+                     ->setActive(true);
+                
+             $this->getEm()->persist($user);
+             $this->getEm()->flush();
+                     
+             return $this->redirect()->toRoute('sonuser-admin', array('controller'=>'users'));
+            }
+        }
+        return new ViewModel(array('form'=>$form));
     }        
     /**
      * @return \Doctrine\ORM\EntityManager

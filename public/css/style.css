@@ -1,26 +1,8 @@
 
 body {
-    /*color: white;*/
+    color: #70d900;
     padding-top: 60px;
     padding-bottom: 40px;
-}
-
-.body_admin{
-    background-color: black;
-    background-image: url("/img/images2.jpg");
-    background-position: 200pt 100pt;
-    background-repeat: no-repeat;
-    background-size: 75% auto;
-    
-}
-
-.body_noadmin{
-    
-    background-image: url("/img/guitar.jpeg");
-    background-position: 0pt 0pt;
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    
 }
 
 .zf-green {
@@ -50,11 +32,6 @@ body {
   background-color: #57a900;
 }
 
-div.container a.brand {
-    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
-    margin-left: 0;
-    padding: 8px 20px 12px 40px;
-}
 
 
 

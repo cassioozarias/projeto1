@@ -1,38 +1,37 @@
 <?php
 
-namespace SONUser\form;
+namespace SONUser\Form;
 
 use Zend\Form\Form;
 
 class User extends Form
 {
-    public function __construct($name = null)
-{
+    public function __construct($name = null) {       
         parent::__construct('user');
         
         $this->setAttribute('method', 'post');
         
-        $id = \Zend\Form\Element\Text('id');
+        $id = new \Zend\Form\Element\Hidden('id');
         $this->add($id);
                 
-        $nome = \Zend\Form\Element\Text('nome');
+        $nome = new \Zend\Form\Element\Text('nome');
         $nome->setLabel("Nome: ");
         $this->add($nome);
         
-        $email = \Zend\Form\Element\Text('email');
+        $email = new \Zend\Form\Element\Text('email');
         $email->setLabel("Email: ");
         $this->add($email);
         
-        $password = \Zend\Form\Element\Text('password');
+        $password = new \Zend\Form\Element\Password('password');
         $password->setLabel("Senha: ");
         $this->add($password);
         
-        $csrf = \Zend\Form\Element(\Csrf("security"));
-        $this -> add($csrf);        
-        
+        $csrf = new \Zend\Form\Element\Csrf("security");
+        $this->add($csrf);
+
         $this->add(array(
             'name' => 'submit',
-            'type' => 'zend\Form\Element\Submit',
+            'type' => 'Zend\Form\Element\Submit',
             'attribute' => array(
                 'value' => 'Salvar',
                 'class' => 'btn btn-sucess'     
