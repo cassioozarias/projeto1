@@ -1,12 +1,23 @@
-<h3>Nova usuário</h3>
+<!--<<<<<<< HEAD-->
+<!--<h3>Nova usuário</h3>-->
 
 <?php
-$form = $this->form; 
+//$form = $this->form; 
+//
+//$form->setAttribute('action', $this->url('sonuser-admin',array('controller'=>'users','action'=>'new')));
+//
+//$form->prepare();
+//=======
+?>
+<h3>Novo Usuário</h3>
 
-$form->setAttribute('action', $this->url('sonuser-admin',array('controller'=>'users','action'=>'new')));
+<?php
+$form = $this->form;
 
+$form->setAttribute('action',$this->url('sonuser-admin',array('controller'=>'users','action'=>'new')));
 $form->prepare();
+
+//>>>>>>> [ADD] adicionando new e o index.
 echo $this->form()->openTag($form);
 echo $this->formCollection($form);
 echo $this->form()->closeTag();
-?>

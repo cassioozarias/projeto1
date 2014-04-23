@@ -1,12 +1,18 @@
 <h3>Users</h3>
 
 <p>
+<<<<<<< HEAD
     <a href="<?php echo $this->url('sonuser-admin',array('action'=>'new')); ?>">Novo</a>
+=======
+    <a href="<?php echo $this->url('sonuser-admin',array('controller'=>'users','action'=>'new'));?>">
+        Novo
+    </a>
+>>>>>>> [ADD] adicionando new e o index.
 </p>
 
 <table class="table">
     <tr>
-        <th>Id</th>
+        <th>ID</th>
         <th>Nome</th>
         <th>Email</th>
         <th>Ação</th>
@@ -16,8 +22,8 @@
         <tr>
             <td> <?php echo $entity->getId(); ?></td>
             <td> <?php echo $entity->getNome(); ?></td>
-            <td> <?php echo $entity->getemail(); ?></td>
-            <td> </td>
+            <td> <?php echo $entity->getEmail(); ?></td>
+            <td></td>
         </tr>
 
     <?php endforeach; ?>

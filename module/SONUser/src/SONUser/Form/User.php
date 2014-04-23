@@ -22,20 +22,29 @@ class User extends Form
         $email->setLabel("Email: ");
         $this->add($email);
         
-        $password = new \Zend\Form\Element\Password('password');
+        $password = new \Zend\Form\Element\Password("password");
         $password->setLabel("Senha: ");
         $this->add($password);
         
-        $csrf = new \Zend\Form\Element\Csrf("security");
+//<<<<<<< HEAD
+//        $csrf = new \Zend\Form\Element\Csrf("security");
+//=======
+       $csrf = new \Zend\Form\Element\Csrf('security');
+//>>>>>>> [ADD] adicionando new e o index.
         $this->add($csrf);
 
         $this->add(array(
             'name' => 'submit',
             'type' => 'Zend\Form\Element\Submit',
-            'attribute' => array(
+//<<<<<<< HEAD
+//            'attribute' => array(
+//=======
+            'attributes' => array(
+//>>>>>>> [ADD] adicionando new e o index.
                 'value' => 'Salvar',
-                'class' => 'btn btn-sucess'     
+                'class' => 'btn-success'
             )
         ));
     }
+
 }

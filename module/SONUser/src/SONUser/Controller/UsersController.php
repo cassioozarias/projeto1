@@ -64,12 +64,17 @@ class UsersController extends AbstractActionController {
                      ->setPassword($data['password'])
                      ->setActive(true);
                 
-             $this->getEm()->persist($user);
-             $this->getEm()->flush();
+                $this->getEm()->persist($user);
+                $this->getEm()->flush();
                      
-             return $this->redirect()->toRoute('sonuser-admin', array('controller'=>'users'));
+//<<<<<<< HEAD
+//             return $this->redirect()->toRoute('sonuser-admin', array('controller'=>'users'));
+//=======
+                return $this->redirect()->toRoute('sonuser-admin', array('controller'=>'users'));
+//>>>>>>> [ADD] adicionando new e o index.
             }
         }
+        
         return new ViewModel(array('form'=>$form));
     }        
     /**

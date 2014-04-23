@@ -26,22 +26,22 @@ class User {
      * @ORM\Column(type="string")
      */
     protected $email;
-//
-//    /**
-//     * @ORM\Column(type="string")
-//     */
-//    protected $password;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $password;
 //
 //    /**
 //     * @ORM\Column(type="string")
 //     */
 //    protected $salt;
-//
-//    /**
-//     * @ORM\Column(type="boolean", nullable=True)
-//     */
-//    protected $active;
-//
+
+    /**
+     * @ORM\Column(type="boolean", nullable=True)
+     */
+    protected $active;
+
 //    /**
 //     * @ORM\Column(type="string",name="activation_key")
 //     */
@@ -84,6 +84,10 @@ class User {
     public function getEmail() {
         return $this->email;
     }
+    
+    public function getPassword() {
+        return $this->password;
+    }
 
 //    public function getPassword() {
 //        return $this->password;
@@ -92,10 +96,10 @@ class User {
 //    public function getSalt() {
 //        return $this->salt;
 //    }
-//
-//    public function getActive() {
-//        return $this->active;
-//    }
+
+    public function getActive() {
+        return $this->active;
+    }
 //
 //    public function getActivationkey() {
 //        return $this->activationkey;
@@ -126,6 +130,11 @@ class User {
         $this->email = $email;
         return $this;
     }
+    
+     public function setPassword($password) { 
+     $this->password = $password;
+     return $this;
+    }
 
 //    public function setPassword($password) {
 //        $this->password = $password;
@@ -137,10 +146,10 @@ class User {
 //        return $this;
 //    }
 //
-//    public function setActive($active) {
-//        $this->active = $active;
-//        return $this;
-//    }
+    public function setActive($active) {
+        $this->active = $active;
+        return $this;
+    }
 //
 //    public function setActivationkey($activationkey) {
 //        $this->activationkey = $activationkey;
