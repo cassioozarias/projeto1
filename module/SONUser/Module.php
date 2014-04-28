@@ -2,9 +2,10 @@
 
 namespace SONUser;
 
-use Zend\Mvc\ModuleRouteListener;
-use    Zend\Mvc\MvcEvent;
+use  Zend\Mvc\ModuleRouteListener;
+use  Zend\Mvc\MvcEvent;
 
+use SONUser\Service\User as UserService;
 
 class Module 
 {
@@ -20,6 +21,17 @@ class Module
     {
         return include __DIR__ . '/config/module.config.php';
     }
+    
+    public function getServiceConfig(){
+        return array (
+            'factories' => array(
+               'SONUser\Service\User' => function ($sm) {
+                   $em = $sm->get('Doctrine\ORM\EntityManager');
+                   return new UserService($em);            
+                }
+             )
+          );
+       }
     public function getAutoloaderConfig() 
      {
         return array(
