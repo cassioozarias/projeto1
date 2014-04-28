@@ -42,33 +42,33 @@ class User {
      */
     protected $active;
 
-//    /**
-//     * @ORM\Column(type="string",name="activation_key")
-//     */
-//    protected $activationkey;
+////    /**
+////     * @ORM\Column(type="string",name="activation_key")
+////     */
+////    protected $activationkey;
+//////
+//////    /**
+//////     * @ORM\Column(type="string", name="token)
+//////     */
+//////    protected $token;
 ////
 ////    /**
-////     * @ORM\Column(type="string", name="token)
+////     * @ORM\Column(type="datetime", name="created_at")
 ////     */
-////    protected $token;
+////    protected $createAt;
+////
+////    /**
+////     * @ORM\Column(type="datetime", name="updated_at")
+////     */
+////    protected $updateAt;
 //
-//    /**
-//     * @ORM\Column(type="datetime", name="created_at")
-//     */
-//    protected $createAt;
-//
-//    /**
-//     * @ORM\Column(type="datetime", name="updated_at")
-//     */
-//    protected $updateAt;
-
-//    public function __construct() {
-//        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-//        $this->createAt = new \DataTime("now");
-//        $this->updateAt = new \DataTime("now");
-//        $this->activationkey = sha1($this->email . $this->salt);
-////        $this->token = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-//    }
+////    public function __construct() {
+////        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+////        $this->createAt = new \DataTime("now");
+////        $this->updateAt = new \DataTime("now");
+////        $this->activationkey = sha1($this->email . $this->salt);
+//////        $this->token = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+////    }
 
     /**
      * @param mixed $email
@@ -88,11 +88,6 @@ class User {
     public function getPassword() {
         return $this->password;
     }
-
-//    public function getPassword() {
-//        return $this->password;
-//    }
-//
 //    public function getSalt() {
 //        return $this->salt;
 //    }
@@ -136,11 +131,6 @@ class User {
      return $this;
     }
 
-//    public function setPassword($password) {
-//        $this->password = $password;
-//        return $this;
-//    }
-
 //    public function setSalt($salt) {
 //        $this->salt = $salt;
 //        return $this;
@@ -172,4 +162,12 @@ class User {
 //    }
     
 
+
+public function toArray()
+{
+return array(
+    'nome' =>$this->getNome(),
+    'email' =>$this->getEmail()         
+  );
+ }     
 }

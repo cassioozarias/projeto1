@@ -4,12 +4,10 @@ namespace SONUser\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
 
 use SONUser\Form\User as UserForm;
+use SONUser\Form\UserFilter as UserFilter;
 use SONUser\Entity\User as UserEntity;
-use SONUser\Service\User as UserService;
-
 
 class UsersController extends AbstractActionController {
 
@@ -20,19 +18,7 @@ class UsersController extends AbstractActionController {
     private $form;
 
     public function __construct() {
-//        $this->entity = "SONUser\Entity\User";
         $this->form = new UserForm();
-//        $this->service = "SONUser\Service\User";
-//        $this->controller = "users";
-//        $this->route = "sonuser-admin";
-    }
-
-    public function jsonAction() {
-        return new JsonModel(
-                array(
-            'teste' => 'teste'
-                )
-        );
     }
 
     public function indexAction() {
@@ -45,6 +31,7 @@ class UsersController extends AbstractActionController {
 
     public function newAction() {
         $form = $this->form;
+//        $form->setInputFilter(new UserFilter());
 
         $request = $this->getRequest();
 
@@ -52,7 +39,7 @@ class UsersController extends AbstractActionController {
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 $data = $form->getData();
-                
+
                 /** @var $userService \SONUser\Service\User */
                 $userService = $this->getServiceLocator()->get('SONUser\Service\User');
                 $userService->insert($form->getData());
@@ -61,14 +48,39 @@ class UsersController extends AbstractActionController {
             }
         }
 
+        return new ViewModel(array('form' => $form));
+    }
+    public function editonAction() {
+        $form = $this->form;
+//        $form->setInputFilter(new UserFilter());
+
+        $request = $this->getRequest();
+        
+        $repository = $this->getEm()->getRepository('SONUser\Entity\User');
+        $entity = $repository->find($this->params()->fromRoute('id',0));
+        
+        if ($entity) {
+            $form->setData($entity->ToArray());
+        }
+        if ($request->isPost()) {
+            $form->setData($form->getData());
+            if ($form->isValid()) {
+                /**var $userService \SONUser\Service\User */
+                $userService = $this->getServiceLocator()->get('SONUser\Service\User');
+                $result = $userService->update($form->getData());
+                
+                if ($result) {
+                    return $this->redirect()->toRoute('sonuser-admin', array('controller' => 'users'));
+                }
+            }
+        }
         return new ViewModel(array('form'=>$form));
     }
-
     /**
      * @return \Doctrine\ORM\EntityManager
      */
     private function getEm() {
         return $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-//        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     }
+
 }
