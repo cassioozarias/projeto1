@@ -3,6 +3,7 @@
 namespace SONUser\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Stdlib\Hydrator;
 
 /**
  * @ORM\Entity
@@ -70,6 +71,10 @@ class User {
 //////        $this->token = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
 ////    }
 
+//    public function __construct(array $options = array()) {
+//        (new Hydrator\ClassMethods)->hydrate($options, $this);
+//    }
+
     /**
      * @param mixed $email
      */
@@ -84,10 +89,11 @@ class User {
     public function getEmail() {
         return $this->email;
     }
-    
+
     public function getPassword() {
         return $this->password;
     }
+
 //    public function getSalt() {
 //        return $this->salt;
 //    }
@@ -95,11 +101,11 @@ class User {
     public function getActive() {
         return $this->active;
     }
+
 //
 //    public function getActivationkey() {
 //        return $this->activationkey;
 //    }
-
 //    public function getToken() {
 //        return $this->token;
 //    }
@@ -125,10 +131,10 @@ class User {
         $this->email = $email;
         return $this;
     }
-    
-     public function setPassword($password) { 
-     $this->password = $password;
-     return $this;
+
+    public function setPassword($password) {
+        $this->password = $password;
+        return $this;
     }
 
 //    public function setSalt($salt) {
@@ -140,17 +146,16 @@ class User {
         $this->active = $active;
         return $this;
     }
+
 //
 //    public function setActivationkey($activationkey) {
 //        $this->activationkey = $activationkey;
 //        return $this;
 //    }
-
 //    public function setToken($token) {
 //        $this->token = $token;
 //        return $this;
 //    }
-
 //    public function setCreateAt($createAt) {
 //        $this->createAt = $createAt;
 //        return $this;
@@ -160,14 +165,11 @@ class User {
 //        $this->updateAt = $updateAt;
 //        return $this;
 //    }
-    
 
 
-public function toArray()
-{
-return array(
-    'nome' =>$this->getNome(),
-    'email' =>$this->getEmail()         
-  );
- }     
+
+    public function toArray() {
+        return (new Hydrator\ClassMethods)->extract($this);
+    }
+
 }

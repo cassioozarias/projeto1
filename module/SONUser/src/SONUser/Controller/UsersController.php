@@ -4,7 +4,6 @@ namespace SONUser\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-
 use SONUser\Form\User as UserForm;
 use SONUser\Form\UserFilter as UserFilter;
 use SONUser\Entity\User as UserEntity;
@@ -31,7 +30,7 @@ class UsersController extends AbstractActionController {
 
     public function newAction() {
         $form = $this->form;
-//        $form->setInputFilter(new UserFilter());
+        $form->setInputFilter(new UserFilter());
 
         $request = $this->getRequest();
 
@@ -42,40 +41,50 @@ class UsersController extends AbstractActionController {
 
                 /** @var $userService \SONUser\Service\User */
                 $userService = $this->getServiceLocator()->get('SONUser\Service\User');
-                $userService->insert($form->getData());
+                $result = $userService->insert($form->getData());
 
-                return $this->redirect()->toRoute('sonuser-admin', array('controller' => 'users'));
-            }
-        }
-
-        return new ViewModel(array('form' => $form));
-    }
-    public function editonAction() {
-        $form = $this->form;
-//        $form->setInputFilter(new UserFilter());
-
-        $request = $this->getRequest();
-        
-        $repository = $this->getEm()->getRepository('SONUser\Entity\User');
-        $entity = $repository->find($this->params()->fromRoute('id',0));
-        
-        if ($entity) {
-            $form->setData($entity->ToArray());
-        }
-        if ($request->isPost()) {
-            $form->setData($form->getData());
-            if ($form->isValid()) {
-                /**var $userService \SONUser\Service\User */
-                $userService = $this->getServiceLocator()->get('SONUser\Service\User');
-                $result = $userService->update($form->getData());
-                
                 if ($result) {
                     return $this->redirect()->toRoute('sonuser-admin', array('controller' => 'users'));
                 }
             }
         }
-        return new ViewModel(array('form'=>$form));
+        return new ViewModel(array('form' => $form));
     }
+
+    public function editAction() {
+        $form = $this->form;
+        $form->setInputFilter(new UserFilter());
+
+        $request = $this->getRequest();
+
+        $repository = $this->getEm()->getRepository('SONUser\Entity\User');
+        $entity = $repository->find($this->params()->fromRoute('id', 0));
+
+        if ($entity) {
+            $form->setData($entity->ToArray());
+        }
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                /** @var $userService \SONUser\Service\User */
+                $userService = $this->getServiceLocator()->get('SONUser\Service\User');
+                $result = $userService->update($form->getData());
+
+                if ($result) {
+                    return $this->redirect()->toRoute('sonuser-admin', array('controller' => 'users'));
+                }
+            }
+        }
+        return new ViewModel(array('form' => $form));
+    }
+
+    public function deleteAction() {
+        $service = $this->getServiceLocator()->get('SONUser\Service\User');
+        if ($service->delete($this->params()->fromRoute('id'))) {
+            return $this->redirect()->toRoute('sonuser-admin', array('controller' => 'users'));
+        }
+    }
+
     /**
      * @return \Doctrine\ORM\EntityManager
      */
